@@ -1,14 +1,25 @@
 package com.simonini.entities;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 
 public class PointOfInterest {
 	
 	@Id
 	public String id;
-	  
+	
+	@NotEmpty(message = "Nome não pode ser vazio")
 	private String 	name;
+	
+	@NotNull(message = "coordenada x não pode ser vazia")
+	@Min(value=0, message="coordenada x deve ser um valor positivo")
 	private Integer	xCoordinate;
+	
+	@NotNull(message = "coordenada y não pode ser vazia")
+	@Min(value=0, message="coordenada y deve ser um valor positivo")
 	private Integer	yCoordinate;
 	
 	public String getId() {
