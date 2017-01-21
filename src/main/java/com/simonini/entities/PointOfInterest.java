@@ -7,51 +7,59 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 
 public class PointOfInterest {
-	
+
 	@Id
 	public String id;
-	
+
 	@NotEmpty(message = "Nome não pode ser vazio")
-	private String 	name;
-	
+	private String name;
+
 	@NotNull(message = "coordenada x não pode ser vazia")
-	@Min(value=0, message="coordenada x deve ser um valor positivo")
-	private Integer	xCoordinate;
-	
+	@Min(value = 0, message = "coordenada x deve ser um valor positivo")
+	private Integer xCoordinate;
+
 	@NotNull(message = "coordenada y não pode ser vazia")
-	@Min(value=0, message="coordenada y deve ser um valor positivo")
-	private Integer	yCoordinate;
-	
+	@Min(value = 0, message = "coordenada y deve ser um valor positivo")
+	private Integer yCoordinate;
+
 	public String getId() {
 		return id;
 	}
-	
+
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public Integer getxCoordinate() {
 		return xCoordinate;
 	}
-	
+
 	public void setxCoordinate(Integer xCoordinate) {
 		this.xCoordinate = xCoordinate;
 	}
-	
+
 	public Integer getyCoordinate() {
 		return yCoordinate;
 	}
-	
+
 	public void setyCoordinate(Integer yCoordinate) {
 		this.yCoordinate = yCoordinate;
+	}
+
+	public Double distanceFrom(PointOfInterest other) {
+		return getDistance(other.getxCoordinate(), other.getyCoordinate());
+	}
+
+	public Double getDistance(Integer xReference, Integer yReference) {
+		return Math.sqrt(Math.pow((this.xCoordinate - xReference), 2) + Math.pow((this.yCoordinate - yReference), 2));
 	}
 
 	@Override
