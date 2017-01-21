@@ -88,26 +88,4 @@ public class XYApplicationControllerTests {
 				.andExpect(jsonPath("$.errorsList", Matchers.hasSize(1)))
 				.andExpect(jsonPath("$.errorsList[0]", Matchers.is("coordenada y não pode ser vazia")));
 	}
-
-	// @Configuration
-	// static class LocationRepositoryTestConfiguration {
-	//
-	// @Bean
-	// public Mongo mongo() {
-	// // Configure a Fongo instance
-	// return new Fongo("mongo-test").getMongo();
-	// }
-	//
-	// @Bean
-	// public MongoTemplate mongoTemplate() {
-	// return new MongoTemplate(mongo(), "collection-name");
-	// }
-	//
-	// @Bean
-	// public LocationRepositoryCustom playerRepository() {
-	// // This is necessary if MongoTemplate is an argument of custom
-	// // implementation constructor
-	// return new LocationRepositoryCustomImpl(mongoTemplate());
-	// }
-	// }
 }
