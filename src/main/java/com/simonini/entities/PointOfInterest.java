@@ -1,10 +1,14 @@
 package com.simonini.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
 public class PointOfInterest {
 
@@ -21,6 +25,17 @@ public class PointOfInterest {
 	@NotNull(message = "coordenada y não pode ser vazia")
 	@Min(value = 0, message = "coordenada y deve ser um valor positivo")
 	private Integer yCoordinate;
+	
+	@Transient
+	private List<String> errorsList = new ArrayList<String>();
+	
+	public List<String> getErrorsList() {
+		return errorsList;
+	}
+
+	public void setErrorsList(List<String> errorsList) {
+		this.errorsList = errorsList;
+	}
 
 	public String getId() {
 		return id;
@@ -52,6 +67,14 @@ public class PointOfInterest {
 
 	public void setyCoordinate(Integer yCoordinate) {
 		this.yCoordinate = yCoordinate;
+	}
+	
+	public void addErrorMessage(String message) {
+		this.errorsList.add(message);
+	}
+	
+	public boolean hasErrors() {
+		return !this.errorsList.isEmpty();
 	}
 
 	public Double distanceFrom(PointOfInterest other) {
@@ -93,3 +116,8 @@ public class PointOfInterest {
 				+ yCoordinate + "]";
 	}
 }
+
+
+
+
+

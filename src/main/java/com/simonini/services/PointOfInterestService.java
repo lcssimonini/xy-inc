@@ -19,13 +19,16 @@ public class PointOfInterestService {
 	private PointOfInterestRepository repository;
 
 	public PointOfInterest save(PointOfInterest point, Errors errors) {
-		if (errors.hasErrors()) {
-			StringBuilder errorsString = new StringBuilder();
-			for (ObjectError error : errors.getAllErrors()) {
-				errorsString.append(error.getDefaultMessage() + "\n");
-			}
+		
+		if (point == null) {
+			throw new IllegalArgumentException("Não foi passado um ponto para ser salvo");
+		}
 
-			throw new IllegalArgumentException(errorsString.toString());
+		if (errors.hasErrors()) {
+			for (ObjectError error : errors.getAllErrors()) {
+				point.addErrorMessage(error.getDefaultMessage());
+			}
+			return point;
 		}
 
 		return repository.save(point);
@@ -63,6 +66,5 @@ public class PointOfInterestService {
 
 			return (calculatedDistance.compareTo(this.distance) < 0);
 		}
-
 	}
 }

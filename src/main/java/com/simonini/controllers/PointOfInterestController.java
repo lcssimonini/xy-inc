@@ -26,15 +26,17 @@ public class PointOfInterestController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<PointOfInterest> savePointOfInteresf(@Validated PointOfInterest point, Errors errors) {
 		PointOfInterest saved = service.save(point, errors);
-
-		ResponseEntity<PointOfInterest> responseEntity = new ResponseEntity<PointOfInterest>(saved, HttpStatus.CREATED);
-
+		
+		HttpStatus status = null;
+		
+		if (saved.hasErrors()) {
+			status = HttpStatus.CONFLICT;
+		} else {
+			status = HttpStatus.CREATED;
+		}
+		
+		ResponseEntity<PointOfInterest> responseEntity = new ResponseEntity<PointOfInterest>(saved, status);
 		return responseEntity;
-	}
-
-	@ExceptionHandler(IllegalArgumentException.class)
-	ResponseEntity<String> handleArgumentErrors(Exception e) {
-		return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -42,10 +44,15 @@ public class PointOfInterestController {
 		return service.findAll();
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "/findNear", method = RequestMethod.GET)
 	public List<PointOfInterest> getNearPoints(@RequestParam("xReference") Integer xReference,
 			@RequestParam("yReference") Integer yReference, @RequestParam("distance") Double distance) {
 
 		return service.findNearPoints(xReference, yReference, distance);
+	}
+
+	@ExceptionHandler(IllegalArgumentException.class)
+	ResponseEntity<String> handleArgumentErrors(Exception e) {
+		return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
 	}
 }
