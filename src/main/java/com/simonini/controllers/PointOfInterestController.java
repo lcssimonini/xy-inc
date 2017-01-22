@@ -22,7 +22,13 @@ public class PointOfInterestController {
 
 	@Autowired
 	private PointOfInterestService service;
-
+	
+	/**
+	 * 
+	 * @param point (ponto é instanciado a partir dos campos fornecidos na requisição POST)
+	 * @param errors (contém as mensagens de validação caso existam)
+	 * @return ponto salvo (id != null) ou ponto com erros de validação (id == null e errorsList com mensagens de erro)
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<PointOfInterest> savePointOfInteresf(@Validated PointOfInterest point, Errors errors) {
 		PointOfInterest saved = service.save(point, errors);
@@ -38,12 +44,23 @@ public class PointOfInterestController {
 		ResponseEntity<PointOfInterest> responseEntity = new ResponseEntity<PointOfInterest>(saved, status);
 		return responseEntity;
 	}
-
+	
+	/**
+	 * 
+	 * @return todos os pontos salvos na base
+	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public List<PointOfInterest> getAllPoints() {
 		return service.findAll();
 	}
-
+	
+	/**
+	 * 
+	 * @param xReference - x do ponto de referência para cálculo da distância 
+	 * @param yReference - y do ponto de referência para cálculo da distância
+	 * @param distance - distância dos pontos que se deseja pesquisar
+	 * @return - lista de pontos contidos no raio fornecido (distância)
+	 */
 	@RequestMapping(value = "/findNear", method = RequestMethod.GET)
 	public List<PointOfInterest> getNearPoints(@RequestParam("xReference") Integer xReference,
 			@RequestParam("yReference") Integer yReference, @RequestParam("distance") Double distance) {

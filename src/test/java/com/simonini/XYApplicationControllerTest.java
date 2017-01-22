@@ -27,7 +27,7 @@ import com.simonini.util.TestUtil;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class XYApplicationControllerTests {
+public class XYApplicationControllerTest {
 	
 	@Autowired
 	private PointOfInterestRepository repository;
