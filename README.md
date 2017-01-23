@@ -9,16 +9,29 @@ Para executar a aplicação, será necessário:
 
   - importar essa aplicação no eclipse como um projeto existente do git; 
   - executar um servidor monngodb (configurado para a porta padrão 27017);
-  -- para mudar a porta configurar no arquivo configuration.properties:
+
+## Alterar configurações do servidor
+  
+Para mudar a porta, configurar no arquivo application.properties:
+
 ```sh
 spring.data.mongodb.host= < seu host >
-spring.data.mongodb.port= < sua porta >
+spring.data.mongodb.port= < número da porta >
 ```
+
+Caso seja necessário modificar a porta do servidor http da aplicação, criar também a seguinte propriedade:
+```sh
+server.port = < número da porta >
+
+```
+
   - executar como aplicação java (jdk 8) o método main da classe XyLocatorApplication;
   - para executar os testes rodar na raiz do projeto:
-  ```sh
-  mvn test
-  ```
+ 
+```sh
+mvn test
+```
+
 ## Documentação da API
 
 Considerando que o sistema está sendo acessado do localhost:
