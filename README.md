@@ -52,14 +52,16 @@ Retorno esperado:
   },
   {
     "id": "58867ec0737cdf172c658758",
-    "name": "putro ponto cadastrado",
+    "name": "outro ponto cadastrado",
     "xCoordinate": 45,
     "yCoordinate": 11,
     "errorsList": []
   }
 ]
 ```
+
 ### Cadastrar ponto
+
  ```sh
 [POST] http://localhost:8080/points?name=padaria&xCoordinate=1&yCoordinate=1
 ```
@@ -78,8 +80,11 @@ Retorno esperado:
   "errorsList": []
 }
 ```
+
 Obs: O campo errorsList é utilizado para informar erros de validação caso existam.
+
 ### Cadastro de ponto com erros
+
  ```sh
 [POST] http://localhost:8080/points?xCoordinate=1&yCoordinate=1
 ```
@@ -93,6 +98,7 @@ Retorno esperado:
   "errorsList": ["Nome não pode ser vazio"]
 }
 ```
+
 Nesse caso, como o ponto informado na requisição não possuia nome, o retorno foi um ponto de id nulo, pois não foi criado no banco de dados, e o campo errosList contendo a mensagem de validação referente ao nome;
 
 ### Outras mensagens de validação
